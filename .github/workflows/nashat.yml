@@ -4,10 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       env:
+        description: Choose environment
+        required: true
         type: choice
         options:
           - dev
           - prod
+        default: dev
 
 env:
   APP: my-app
