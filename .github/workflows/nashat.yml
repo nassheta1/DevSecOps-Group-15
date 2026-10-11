@@ -1,0 +1,33 @@
+name: Nashat Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        options:
+          - dev
+          - prod
+
+env:
+  APP: my-app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Building $APP"
+
+  dev_job:
+    needs: build
+    if: ${{ inputs.env == 'dev' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy to Dev"
+
+  prod_job:
+    needs: build
+    if: ${{ inputs.env == 'prod' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy to Prod"
